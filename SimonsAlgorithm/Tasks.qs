@@ -65,7 +65,11 @@ namespace Quantum.Kata.SimonsAlgorithm {
         // You don't need to modify it. Feel free to remove it, this won't cause your code to fail.
         EqualityFactI(Length(x), Length(A), "Arrays x and A should have the same length");
             
-        // ...
+        for i in IndexRange(A) {
+            if (A[i] == 1) {
+                CNOT(x[i], y);
+            }          
+        }
     }
     
     
