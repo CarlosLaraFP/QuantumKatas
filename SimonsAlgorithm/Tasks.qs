@@ -140,7 +140,7 @@ namespace Quantum.Kata.SimonsAlgorithm {
         
         // Declare an Int array in which the result will be stored;
         // the variable has to be mutable to allow updating it.
-        mutable b = [0, N];
+        mutable b = [];
         // There exist two input strings x1 and x2 that return the same output
         
         // 1. Obtain the first measurement outcome []
@@ -153,8 +153,8 @@ namespace Quantum.Kata.SimonsAlgorithm {
         within { SA_StatePrep(x); }
         apply { Uf(x, y); }
 
-        for i in IndexRange(x) {
-            set b w/= i <- MResetZ(x[i]) == Zero ? 0 | 1;
+        for i in 0 .. N - 1 {
+            set b += [MResetZ(x[i]) == Zero ? 0 | 1];
         }
         ResetAll(y);
 
