@@ -7,6 +7,7 @@ namespace Quantum.Kata.SimonsAlgorithm {
     open Microsoft.Quantum.Intrinsic;
     open Microsoft.Quantum.Canon;
     open Microsoft.Quantum.Arrays;
+    open Microsoft.Quantum.Measurement;
     
     //////////////////////////////////////////////////////////////////
     // Welcome!
@@ -110,7 +111,8 @@ namespace Quantum.Kata.SimonsAlgorithm {
     // Goal: create an equal superposition of all basis vectors from |0...0⟩ to |1...1⟩ on query register
     // (i.e. the state (|0...0⟩ + ... + |1...1⟩) / sqrt(2ᴺ)).
     operation SA_StatePrep (query : Qubit[]) : Unit is Adj {        
-        // ...
+        //
+        ApplyToEachCA(H, query);
     }
     
     
@@ -138,9 +140,23 @@ namespace Quantum.Kata.SimonsAlgorithm {
         
         // Declare an Int array in which the result will be stored;
         // the variable has to be mutable to allow updating it.
-        mutable b = [];
+        mutable b = [0, N];
+        // There exist two input strings x1 and x2 that return the same output
         
-        // ...
+        // 1. Obtain the first measurement outcome []
+        // 2. Repeat until we obtain another measurement outcome [] which equals the first
+        // 3. CNOT loop using the 2 inputs that produced the same output
+        // 4. Return the solution []
+        
+        use (x, y) = (Qubit[N], Qubit[N]);
+
+        within { SA_StatePrep(x); }
+        apply { Uf(x, y); }
+
+        for i in IndexRange(x) {
+            set b w/= i <- MResetZ(x[i]) == Zero ? 0 | 1;
+        }
+        ResetAll(y);
 
         return b;
     }
