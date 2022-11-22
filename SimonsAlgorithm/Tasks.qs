@@ -32,8 +32,8 @@ namespace Quantum.Kata.SimonsAlgorithm {
     // Goal: Transform state |x, y⟩ into |x, y ⊕ x₀ ⊕ x₁ ... ⊕ xₙ₋₁⟩ (⊕ is addition modulo 2).
     operation Oracle_CountBits (x : Qubit[], y : Qubit) : Unit is Adj {        
         // 
-        for i in IndexRange(x) {
-            CNOT(x[i], y);
+        for q in x {
+            CNOT(q, y);
         }
     }
     
@@ -45,7 +45,10 @@ namespace Quantum.Kata.SimonsAlgorithm {
     // Goal: Transform state |x, y⟩ into |x, y ⊕ f(x)⟩, where f is bitwise right shift function, i.e.,
     // |y ⊕ f(x)⟩ = |y₀, y₁ ⊕ x₀, y₂ ⊕ x₁, ..., yₙ₋₁ ⊕ xₙ₋₂⟩ (⊕ is addition modulo 2).
     operation Oracle_BitwiseRightShift (x : Qubit[], y : Qubit[]) : Unit is Adj {        
-        // ...
+        //
+        for i in 0 .. Length(x) - 2 {
+            CNOT(x[i], y[i+1]);
+        }
     }
     
     
