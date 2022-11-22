@@ -154,6 +154,9 @@ namespace Quantum.Kata.SimonsAlgorithm {
         apply { Uf(x, y); }
 
         for i in 0 .. N - 1 {
+            // The answer itself will never be a possible outcome (?)
+            // Therefore, measurements are guaranteed to return bitstrings orthogonal to the answer
+            // We run the quantum part of the algorithm until we have a linearly independent list of bitstrings orthogonal to the answer
             set b += [MResetZ(x[i]) == Zero ? 0 | 1];
         }
         ResetAll(y);
