@@ -6,6 +6,7 @@
     <RootNamespace>Quantum.Kata.QEC_BitFlipCode</RootNamespace>
     <IQSharpLoadAutomatically>true</IQSharpLoadAutomatically>
   </PropertyGroup>
+
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
